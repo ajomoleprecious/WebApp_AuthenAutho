@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
+using WebApp_UnderTheHood.Authorization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,10 +24,14 @@ builder.Services.AddAuthorization(config =>
 {
     config.AddPolicy("MustBeHR", policy => policy.RequireClaim("Department", "HR"));
     config.AddPolicy("MustBeAdmin", policy => policy.RequireClaim("Admin"));
-    config.AddPolicy("MustBeHRmanager", policy => policy
+    config.AddPolicy("MustBeHRManager", policy => policy
                                     .RequireClaim("Department", "HR")
-                                    .RequireClaim("Manager"));
+                                    .RequireClaim("Manager")
+                                    .Requirements.Add(new HRManagerProbationRequirement(3))); // add a custom requirement
 });
+
+// add a dependency injection for the custom requirement handler through the AddSingleton method
+builder.Services.AddSingleton<IAuthorizationHandler, HRManagerProbationRequirementHandler>();
 
 var app = builder.Build();
 

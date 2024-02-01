@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApp_UnderTheHood.Pages
 {
-    [Authorize(Policy = "MustBeHRmanager")]
+    [Authorize(Policy = "MustBeHRManager")]
     public class HRmanagerModel : PageModel
     {
         public void OnGet()

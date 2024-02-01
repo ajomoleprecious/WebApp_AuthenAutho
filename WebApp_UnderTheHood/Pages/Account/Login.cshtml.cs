@@ -33,6 +33,7 @@ namespace WebApp_UnderTheHood.Pages.Account
                     new Claim("Department", "HR"),
                     new Claim("Admin", "true"),
                     new Claim("Manager", "true"),
+                    new Claim("EmploymentDate", new DateTime(2023, 05, 1).ToString("yyyy-MM-dd")),
                     };
 
                 // create the identity
@@ -44,9 +45,15 @@ namespace WebApp_UnderTheHood.Pages.Account
                 // 3. Create a ClaimsPrincipal object.
                 var principal = new ClaimsPrincipal(identity);
 
+                var authProperties = new AuthenticationProperties
+                {
+                    // Set the IsPersistent property to true to create a persistent cookie.
+                    IsPersistent = Credential.RememberMe
+                };
+
                 // sign in the user
                 // 4. Call the SignInAsync method on the HttpContext object.
-                await HttpContext.SignInAsync("MyCookieAuth", principal);
+                await HttpContext.SignInAsync("MyCookieAuth", principal, authProperties);
 
                 //go to return url or home page
 
@@ -72,5 +79,8 @@ namespace WebApp_UnderTheHood.Pages.Account
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
+
+        [Display(Name = "Remember me")]
+        public bool RememberMe { get; set; }
     }
 }
