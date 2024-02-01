@@ -1,0 +1,34 @@
+﻿@page
+@model WebApp_UnderTheHood.Pages.Account.LoginModel
+@{
+}
+
+<div class="container border" style="padding:20px">
+    <form method="post">
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="Credential.Username"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Credential.Username" class="form-control" autocomplete="on"/>
+                <span asp-validation-for="Credential.Username" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="Credential.Password"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Credential.Password" class="form-control" autocomplete="on"/>
+                <span asp-validation-for="Credential.Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+            <div class="col-5">
+            </div>
+        </div>
+    </form>
+</div>
